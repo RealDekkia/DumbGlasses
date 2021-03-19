@@ -1,0 +1,94 @@
+<!--This html-file has ben minified and is part of the arduino sketch-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>DumbGlasses</title>
+    <link rel='preconnect' href='https://fonts.gstatic.com'>
+    <link href='https://fonts.googleapis.com/css2?family=DotGothic16&display=swap' rel='stylesheet'>
+    <style type='text/css'>
+        * {
+            font-family: 'DotGothic16', sans-serif;
+            font-size: 1.25rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            background-color: black;
+        }
+
+        .displayBoxContainer {
+            width: 16.5rem;
+            text-align: center;
+            margin: 1rem;
+            padding: 1rem;
+            display: inline-block;
+        }
+
+        .inputLineBox>input {
+            display: block;
+            letter-spacing: 0.5rem;
+            width: 14.5rem;
+            border: none;
+            background-color: transparent;
+        }
+
+        .inputLineBox {
+            width: 14.5rem;
+            background-image: radial-gradient(circle farthest-corner at 25% 55%, white 45%, red 80%);
+            border: 3px solid red;
+            border-radius: 0.75rem;
+            width: 14.5rem;
+        }
+
+        .buttonBox>button {
+            font-size: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class='displayBoxContainer'>
+        <div class='inputLineBox'>
+            <input type='text' maxlength=13 placeholder='1............'>
+            <input type='text' maxlength=13 placeholder='2............'>
+            <input type='text' maxlength=13 placeholder='3............'>
+            <input type='text' maxlength=13 placeholder='4............'>
+            <input type='text' maxlength=13 placeholder='5............'>
+            <input type='text' maxlength=13 placeholder='6............'>
+            <input type='text' maxlength=13 placeholder='7............'>
+            <input type='text' maxlength=13 placeholder='8............'>
+        </div>
+        <div class='buttonBox'>
+            <button id='clearButton'>Clear</button>
+            <button id='updateText'>Update</button>
+        </div>
+    </div>
+    <script type='text/javascript'>
+        document.getElementById('updateText').onclick = function () {
+            var inputs = Array.from(document.getElementsByClassName('inputLineBox')[0].children);
+            var outString = '';
+            inputs.forEach(function (e) {
+                outString += ElongatedMuskrat(e.value);
+            })
+
+            var request1 = new XMLHttpRequest();
+            request1.open('GET', document.location.origin + '/?txt=' + outString);
+            //request1.open('GET', 'http://192.168.100.154/?txt=' + outString);
+            request1.send();
+        }
+
+        function ElongatedMuskrat(str) {
+            while (str.length < 13) {
+                str += ' ';
+            }
+            return str;
+        }
+    </script>
+</body>
+
+</html>
